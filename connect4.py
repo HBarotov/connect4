@@ -48,13 +48,8 @@ class Table:
         # Check vertical
         for c in range(COLUMN_COUNT):
             for r in range(ROW_COUNT - 3):
-                if (
-                    board[r][c]
-                    == board[r + 1][c]
-                    == board[r + 2][c]
-                    == board[r + 3][c]
-                    == piece
-                ):
+                subset = list(board[r : r + 4, c])
+                if all(subset) and sum(subset) == 4 * piece:
                     return True
 
         # Check positively slopes
