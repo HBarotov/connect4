@@ -41,13 +41,8 @@ class Table:
         # Check horizontal
         for c in range(COLUMN_COUNT - 3):
             for r in range(ROW_COUNT):
-                if (
-                    board[r][c]
-                    == board[r][c + 1]
-                    == board[r][c + 2]
-                    == board[r][c + 3]
-                    == piece
-                ):
+                subset = list(board[r, c : c + 4])
+                if all(subset) and sum(subset) == 4 * piece:
                     return True
 
         # Check vertical
@@ -92,7 +87,7 @@ class Table:
 
         if self.is_valid_location(board=board, col=col):
             row = self.get_next_open_row(board=board, col=col)
-            self.drop_piece(board=board, row=row, col=col, turn=turn)
+            self.drop_piece(board=board, row=row, col=col, piece=turn)
 
             if self.winning_move(board=board, piece=turn):
                 label = myfont.render(
